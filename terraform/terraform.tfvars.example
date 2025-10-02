@@ -1,0 +1,72 @@
+# AWS Configuration
+aws_region = "us-east-1"
+
+# Project Configuration
+project_name = "n8n"
+environment  = "prod"
+
+# Network Configuration
+vpc_cidr             = "10.0.0.0/16"
+availability_zones   = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.10.0/24", "10.0.11.0/24"]
+
+# n8n Configuration
+n8n_version           = "latest"
+n8n_basic_auth_active = true
+n8n_basic_auth_user   = "admin"
+# n8n_basic_auth_password = ""  # Leave empty to auto-generate
+# n8n_encryption_key      = ""  # Leave empty to auto-generate
+
+# ECS Configuration
+ecs_task_cpu      = 512
+ecs_task_memory   = 1024
+ecs_desired_count = 1
+ecs_min_count     = 1
+ecs_max_count     = 4
+
+# RDS Configuration
+db_instance_class          = "db.t3.micro"
+db_allocated_storage       = 20
+db_max_allocated_storage   = 100
+db_name                    = "n8n"
+db_username                = "n8nadmin"
+# db_password              = ""  # Leave empty to auto-generate
+db_multi_az                = false
+db_backup_retention_period = 7
+db_deletion_protection     = true
+
+# ALB & Domain Configuration
+domain_name = "n8n.example.com" # IMPORTANT: Update this with your domain
+# certificate_arn = ""  # Leave empty to create new ACM certificate
+enable_https = true
+
+# S3 Configuration
+enable_s3_storage = true
+s3_force_destroy  = false
+
+# CloudWatch Configuration
+log_retention_days = 30
+
+# Monitoring & Alarms
+alarm_email = "" # Add your email for CloudWatch alarm notifications
+
+# Advanced Features (Optional - for Production)
+enable_rds_proxy  = false # Enable for production - provides connection pooling
+enable_queue_mode = false # Enable for high-scale deployments - requires Redis
+enable_ecr        = false # Enable to use ECR instead of Docker Hub - enables image scanning
+
+# Redis Configuration (only used if enable_queue_mode = true)
+redis_node_type          = "cache.t3.micro"
+redis_num_cache_clusters = 2 # Set to 2 or more for Multi-AZ
+
+# Tagging & Cost Allocation
+data_classification = "internal" # Options: public, internal, confidential, restricted
+cost_center         = ""         # Optional: your cost center name
+
+# Additional Tags (optional)
+additional_tags = {
+  Owner = "DevOps Team"
+  # Department = "Engineering"
+  # Application = "n8n-workflows"
+}
